@@ -11,7 +11,7 @@ public class DB {
        try {
          
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-        String url ="jdbc:mysql://localhost:3308/hm7?user=root&password=";
+        String url ="jdbc:mysql://localhost:3306/hm9?user=root&password=salamgolabi";
           conn = DriverManager.getConnection(url); 
         stmt = conn.createStatement();
 

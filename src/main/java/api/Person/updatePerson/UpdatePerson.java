@@ -54,7 +54,7 @@ public class UpdatePerson extends HttpServlet {
 			response.getWriter().append("Object is successfully updated!");
 
 		} catch (Exception e) {
-			response.getWriter().append("Object is NOT successfully added! ");
+			response.getWriter().append("Object is NOT successfully updated! ");
 			e.printStackTrace();
 		}
 	}
