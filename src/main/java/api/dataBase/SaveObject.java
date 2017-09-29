@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 import api.Person.Person;
@@ -24,7 +25,8 @@ public class SaveObject {
 		this.javaObject = javaObject;
 	}
 
-	public void saveObject() throws Exception {
+	public boolean saveObject() throws Exception {
+		
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			String url = "jdbc:mysql://localhost:3306/hm9?user=root&password=salamgolabi";
@@ -45,11 +47,19 @@ public class SaveObject {
 			sql = "insert into javaobject (id, javaObject) values(" + ((Person) javaObject).getId() + ",?)";
 			ps = conn.prepareStatement(sql);
 			ps.setObject(1, data);
+			try{
 			ps.executeUpdate();
+			}
+			catch(SQLIntegrityConstraintViolationException e){
+				System.out.println(e.getMessage());
+				return false;
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
+		return true;
 
 	}
 
@@ -111,11 +121,11 @@ public class SaveObject {
 
 				ins = new ObjectInputStream(bais);
 
-				Person mc = (Person) ins.readObject();
+				Person person = (Person) ins.readObject();
 
 				// System.out.println("Object in value : " + mc.getFirstName());
 				ins.close();
-				rmObj.add(mc);
+				rmObj.add(person);
 
 			} catch (Exception e) {
 

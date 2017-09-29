@@ -47,9 +47,14 @@ public class AddPerson extends HttpServlet {
 
 		try {
 			so.setJavaObject(person);
-			so.saveObject();
+			if(so.saveObject()){
+				response.getWriter().append("Object was successfully added!");
+			}
+			else{
+				response.getWriter().append("Object was NOT successfully added!");
+			}
 			
-			response.getWriter().append("Object is successfully added!");
+			
 			
 
 		} catch (Exception e) {

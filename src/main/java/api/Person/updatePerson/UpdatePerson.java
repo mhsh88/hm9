@@ -30,33 +30,8 @@ public class UpdatePerson extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		String firstName = request.getParameter("firstname");
-		String lastName = request.getParameter("lastname");
-		long phoneNumber = Long.parseLong(request.getParameter("phonenumber"));
-		String province = request.getParameter("province");
-		String city = request.getParameter("city");
-		String mainStreet = request.getParameter("mainstreet");
-		String street = request.getParameter("street");
-		int number = Integer.parseInt(request.getParameter("number"));
-		long zipCode = Long.parseLong(request.getParameter("zipcode"));
-		Address address = new Address(province, city, mainStreet, street, number, zipCode);
-		Person person = new Person(id, firstName, lastName, phoneNumber, address);
-		
-		
-		SaveObject so = new SaveObject();
 
-		try {
-			
-			so.setJavaObject(person);
-			so.updateObject();
-
-			response.getWriter().append("Object is successfully updated!");
-
-		} catch (Exception e) {
-			response.getWriter().append("Object is NOT successfully updated! ");
-			e.printStackTrace();
-		}
+		doPut(request, response);
 	}
 
 	/**
@@ -69,4 +44,34 @@ public class UpdatePerson extends HttpServlet {
 		doGet(request, response);
 	}
 
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		int id = Integer.parseInt(request.getParameter("id"));
+		String firstName = request.getParameter("firstname");
+		String lastName = request.getParameter("lastname");
+		long phoneNumber = Long.parseLong(request.getParameter("phonenumber"));
+		String province = request.getParameter("province");
+		String city = request.getParameter("city");
+		String mainStreet = request.getParameter("mainstreet");
+		String street = request.getParameter("street");
+		int number = Integer.parseInt(request.getParameter("number"));
+		long zipCode = Long.parseLong(request.getParameter("zipcode"));
+		Address address = new Address(province, city, mainStreet, street, number, zipCode);
+		Person person = new Person(id, firstName, lastName, phoneNumber, address);
+
+		SaveObject so = new SaveObject();
+
+		try {
+
+			so.setJavaObject(person);
+			so.updateObject();
+
+			response.getWriter().append("Object is successfully updated!");
+
+		} catch (Exception e) {
+			response.getWriter().append("Object is NOT successfully updated! ");
+			e.printStackTrace();
+		}
+	}
 }

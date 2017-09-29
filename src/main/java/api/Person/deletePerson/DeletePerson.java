@@ -16,6 +16,7 @@ import api.dataBase.DB;
 public class DeletePerson extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DB db = new DB();
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -30,20 +31,7 @@ public class DeletePerson extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		String sql = "DELETE FROM javaobject WHERE id = " + id+ ";";
-		try {
-			boolean dataBaseCheck = db.doExcute(sql);
-			if(dataBaseCheck)
-				response.getWriter().append("the person with id = " + id +" is deleted!");
-			else
-				response.getWriter().append("the person is not added so it is not in database");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			response.getWriter().append("server has encountered error" + e.getMessage());
-			e.printStackTrace();
-		}
-		
+		doDelete(request, response);
 	}
 
 	/**
@@ -54,6 +42,24 @@ public class DeletePerson extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		String sql = "DELETE FROM javaobject WHERE id = " + id + ";";
+		try {
+			boolean dataBaseCheck = db.doExcute(sql);
+			if (dataBaseCheck)
+				response.getWriter().append("the person with id = " + id + " is deleted!");
+			else
+				response.getWriter().append("the person is not added so it is not in database");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			response.getWriter().append("server has encountered error" + e.getMessage());
+			e.printStackTrace();
+		}
+
 	}
 
 }
